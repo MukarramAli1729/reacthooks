@@ -6,9 +6,16 @@ export default class TodoByClasses extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            checked: false
+            checked: false,
+            striked: false
         }
         this.toggleCheck = this.toggleCheck.bind(this);
+        this.toggleStrike = this.toggleStrike.bind(this);
+    }
+
+
+    toggleStrike(event) {
+        this.setState({striked: !this.state.striked});
     }
 
     toggleCheck(event) {
@@ -18,11 +25,18 @@ export default class TodoByClasses extends React.Component {
     render() {
       return <div>
         <input type="checkbox"
-            id="todo"
-            name="todo"
+            id="todoClasses"
             checked={this.state.checked}
             onChange={this.toggleCheck}/>
-        <label htmlFor="todo">Lunch & Learn - Classes</label>
+        <label
+            htmlFor="todoHooks"
+            className={this.state.striked && "strike"}>
+            Lunch & Learn - Classes
+        </label>
+        <button
+            onClick={this.toggleStrike}>
+            Strike
+        </button>
         <Timer time={60}/>
       </div>;
     }

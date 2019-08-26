@@ -4,14 +4,22 @@ import Timer from './Timer'
 export default function TodoByHooks() {
 
     let [checked, setChecked] = useState(false)
+    let [striked, setStriked] = useState(false)
 
     return <div>
         <input type="checkbox"
-            id="todo"
-            name="todo"
+            id="todoHooks"
             checked={checked}
             onChange={() => setChecked(!checked)}/>
-        <label htmlFor="todo">Lunch & Learn - Hooks</label>
+        <label
+            htmlFor="todoHooks"
+            className={striked && "strike"}>
+            Lunch & Learn - Hooks
+        </label>
+        <button
+            onClick={()=> setStriked(!striked)}>
+            Strike
+        </button>
         <Timer time={60}/>
     </div>;
 }
