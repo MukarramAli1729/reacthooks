@@ -5,12 +5,7 @@ export default function TodoByHooks() {
 
     let [checked, setChecked] = useState(false)
     let [striked, setStriked] = useState(false)
-    let [timer, setTimer] = useState(60)
-
-    useEffect(() => {
-        if( timer > 0)
-            setTimeout(() => setTimer(timer-1), 1000)
-    });
+    let timer = useTimer(60)
 
     return <div>
         <input type="checkbox"
@@ -28,4 +23,14 @@ export default function TodoByHooks() {
         </button>
         <Timer time={timer}/>
     </div>;
+}
+
+function useTimer(initTimer) {
+    let [timer, setTimer] = useState(initTimer)
+
+    useEffect(() => {
+        if( timer > 0)
+            setTimeout(() => setTimer(timer-1), 1000)
+    });
+    return timer;
 }
