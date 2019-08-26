@@ -1,4 +1,5 @@
 import React from 'react'
+import Timer from './Timer'
 
 export default class TodoByClasses extends React.Component {
 
@@ -22,6 +23,7 @@ export default class TodoByClasses extends React.Component {
             checked={this.state.checked}
             onChange={this.toggleCheck}/>
         <label htmlFor="todo">Lunch & Learn - Classes</label>
+        <Timer time={60}/>
       </div>;
     }
 }

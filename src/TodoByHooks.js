@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import Timer from './Timer'
 
 export default function TodoByHooks() {
 
@@ -11,5 +12,6 @@ export default function TodoByHooks() {
             checked={checked}
             onChange={() => setChecked(!checked)}/>
         <label htmlFor="todo">Lunch & Learn - Hooks</label>
+        <Timer time={60}/>
     </div>;
 }
