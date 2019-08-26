@@ -1,10 +1,16 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Timer from './Timer'
 
 export default function TodoByHooks() {
 
     let [checked, setChecked] = useState(false)
     let [striked, setStriked] = useState(false)
+    let [timer, setTimer] = useState(60)
+
+    useEffect(() => {
+        if( timer > 0)
+            setTimeout(() => setTimer(timer-1), 1000)
+    });
 
     return <div>
         <input type="checkbox"
@@ -13,13 +19,13 @@ export default function TodoByHooks() {
             onChange={() => setChecked(!checked)}/>
         <label
             htmlFor="todoHooks"
-            className={striked && "strike"}>
+            className={striked ? "strike" : ""}>
             Lunch & Learn - Hooks
         </label>
         <button
             onClick={()=> setStriked(!striked)}>
             Strike
         </button>
-        <Timer time={60}/>
+        <Timer time={timer}/>
     </div>;
 }
