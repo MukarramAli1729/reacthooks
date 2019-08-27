@@ -8,11 +8,13 @@ export default class TodoByClasses extends React.Component {
         this.state = {
             checked: false,
             striked: false,
-            timer: 60
+            timer: 60,
+            windowWidth: window.innerWidth
         }
         this.toggleCheck = this.toggleCheck.bind(this)
         this.toggleStrike = this.toggleStrike.bind(this)
         this.startTimer = this.startTimer.bind(this)
+        this.handleWindowSize = this.handleWindowSize.bind(this)
     }
 
     toggleStrike(event) {
@@ -37,8 +39,17 @@ export default class TodoByClasses extends React.Component {
         }
     }
 
+    handleWindowSize() {
+        this.setState({windowWidth: window.innerWidth})
+    }
+
     componentDidMount() {
         this.startTimer()
+        window.addEventListener('resize', this.handleWindowSize)
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.handleWindowSize)
     }
 
     render() {
@@ -52,6 +63,7 @@ export default class TodoByClasses extends React.Component {
             className={this.state.striked ? "strike" : ""}>
             Lunch & Learn - Classes
         </label>
+        {this.state.windowWidth <= 400 && <br/>}
         <button
             onClick={this.toggleStrike}>
             Strike
