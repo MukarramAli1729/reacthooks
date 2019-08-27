@@ -20,12 +20,18 @@ export default class TodoByClasses extends React.Component {
     }
 
     toggleCheck(event) {
-        this.setState({checked: !this.state.checked})
+        if(this.state.checked) {
+            this.setState({checked: false})
+            setTimeout(this.startTimer, 100)
+        }
+        else {
+            this.setState({timer: 60, checked: true})
+        }
     }
 
     // To give a dynamic timer in state
     startTimer() {
-        if(this.state.timer > 0) {
+        if(!this.state.checked && this.state.timer > 0) {
             this.setState({timer: this.state.timer - 1})
             setTimeout(() => this.startTimer(), 1000)
         }
