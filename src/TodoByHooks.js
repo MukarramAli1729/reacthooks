@@ -1,26 +1,38 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useReducer} from 'react'
 import Timer from './Timer'
 
 export default function TodoByHooks() {
 
-    let [checked, setChecked] = useState(false)
-    let [striked, setStriked] = useState(false)
-    let timer = useTimer(!checked)
+    const [state, dispatch] = useReducer((state, action) => {
+        switch (action.type) {
+            case 'TOGGLE_CHECK':
+                return {checked: !state.checked};
+            case 'TOGGLE_STRIKE':
+                return {strike: !state.striked};
+            default:
+                return state;
+        }
+    }, {
+        checked: false,
+        striked: false
+    });
+    let timer = useTimer(!state.checked)
     let windowWidth = useWindowSize()
+
 
     return <div>
         <input type="checkbox"
             id="todoHooks"
-            checked={checked}
-            onChange={() => setChecked(!checked)}/>
+            checked={state.checked}
+            onChange={() => dispatch({type: 'TOGGLE_CHECK'})}/>
         <label
             htmlFor="todoHooks"
-            className={striked ? "strike" : ""}>
+            className={state.striked ? "strike" : ""}>
             Lunch & Learn - Hooks
         </label>
         {windowWidth <= 400 && <br/>}
         <button
-            onClick={()=> setStriked(!striked)}>
+            onClick={()=> dispatch({type: 'TOGGLE_STRIKE'})}>
             Strike
         </button>
         <Timer time={timer}/>
